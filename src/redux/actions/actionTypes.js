@@ -1,3 +1,5 @@
 export const ACT_SUBMIT_EMAIL = 'ACT_SUBMIT_EMAIL';
 
-export const ACT_SUBMIT_TESTE = 'ACT_SUBMIT_TESTE'; // só pra tirar o erro do lint
+export const ACT_LOADING_API = 'ACT_LOADING_API';
+
+export const ACT_GET_RESPONSE_API = 'ACT_GET_RESPONSE_API';
