@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchAPI } from '../redux/actions';
+import { fetchCurrencies } from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
@@ -12,9 +12,9 @@ class WalletForm extends Component {
     tag: 'Alimentação',
   };
 
-  componentDidMount() {
-    const { executeFetchAPI } = this.props;
-    executeFetchAPI();
+  async componentDidMount() {
+    const { executeFetchCurrencies } = this.props;
+    executeFetchCurrencies();
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -93,6 +93,12 @@ class WalletForm extends Component {
               <option>Saúde</option>
             </select>
           </label>
+          <button
+            type="button"
+            // onClick={}
+          >
+            Adicionar despesa
+          </button>
         </form>
       </main>
     );
@@ -100,7 +106,7 @@ class WalletForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  executeFetchAPI: () => dispatch(fetchAPI()),
+  executeFetchCurrencies: () => dispatch(fetchCurrencies()),
 });
 
 const mapStateToProps = (state) => ({

@@ -14,8 +14,7 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   case ACT_GET_RESPONSE_API:
     return {
       ...state,
-      responseAPI: action.payload.responseAPI,
-      currencies: action.payload.responseAPI.map((currencies) => currencies[0]),
+      currencies: Object.keys(action.payload.responseAPI),
     };
   default:
     return state;
