@@ -1,7 +1,7 @@
 import {
   ACT_SUBMIT_EMAIL,
-  ACT_GET_RESPONSE_API,
-  // ACT_SUBMIT_EXPENSES,
+  ACT_SUBMIT_CURRENCIES,
+  ACT_SUBMIT_EXPENSES,
 } from './actionTypes';
 
 // função para fazer a chamada da API
@@ -16,13 +16,17 @@ export const getDataAPI = async () => {
 // Coloque aqui suas actions
 export const submitEmail = (email) => ({ type: ACT_SUBMIT_EMAIL, payload: { email } });
 
-const getResponseAPI = (responseAPI) => (
-  { type: ACT_GET_RESPONSE_API, payload: { responseAPI } }
+const getResponseAPI = (type, responseAPI) => (
+  { type, payload: { responseAPI } }
 );
 
 export function fetchCurrencies() {
   return async (dispatch) => {
     const currencies = await getDataAPI();
-    return dispatch(getResponseAPI(currencies));
+    return dispatch(getResponseAPI(ACT_SUBMIT_CURRENCIES, currencies));
   };
 }
+
+export const submitExpenses = (expenses) => (
+  { type: ACT_SUBMIT_EXPENSES, payload: { expenses } }
+);

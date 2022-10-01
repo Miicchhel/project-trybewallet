@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies } from '../redux/actions';
+import {
+  getDataAPI,
+  fetchCurrencies,
+  submitExpenses,
+} from '../redux/actions';
 
 class WalletForm extends Component {
   state = {
@@ -19,6 +23,13 @@ class WalletForm extends Component {
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
+  };
+
+  handleFormSubmite = async () => {
+    const { expenses, executeSubmitExpenses } = this.props;
+    const exchangeRates = await getDataAPI();
+    executeSubmitExpenses({ id: expenses.length, ...this.state, exchangeRates });
+    this.setState({ value: '', description: '' });
   };
 
   render() {
@@ -95,7 +106,7 @@ class WalletForm extends Component {
           </label>
           <button
             type="button"
-            // onClick={}
+            onClick={ this.handleFormSubmite }
           >
             Adicionar despesa
           </button>
@@ -107,10 +118,13 @@ class WalletForm extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   executeFetchCurrencies: () => dispatch(fetchCurrencies()),
+  executeSubmitExpenses: (expenses) => dispatch(submitExpenses(expenses)),
 });
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  responseAPI: state.wallet.responseAPI,
+  expenses: state.wallet.expenses,
 });
 
 WalletForm.propTypes = {
