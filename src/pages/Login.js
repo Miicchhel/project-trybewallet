@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { submitEmail } from '../redux/actions';
+import { Link } from 'react-router-dom';
 
 const minLengt = 6;
 
@@ -27,9 +28,9 @@ class Login extends React.Component {
 
   handleBtnClick = () => {
     const { email } = this.state;
-    const { history, FunctionSubmitEmail } = this.props;
+    const { FunctionSubmitEmail } = this.props;
     FunctionSubmitEmail(email);
-    history.push('/carteira');
+    // history.push('/carteira'); // tirei porque tava quebrando o teste não sei pq
   };
 
   render() {
@@ -59,14 +60,16 @@ class Login extends React.Component {
               data-testid="password-input"
             />
           </labe>
-          <button
-            type="button"
-            id="button"
-            disabled={ isDisabled }
-            onClick={ this.handleBtnClick }
-          >
-            Entrar
-          </button>
+          <Link to="/carteira">
+            <button
+              type="button"
+              id="button"
+              disabled={ isDisabled }
+              onClick={ this.handleBtnClick }
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </section>
     );
