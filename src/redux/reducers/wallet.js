@@ -1,4 +1,5 @@
 import {
+  ACT_DELETE_BTN,
   ACT_SUBMIT_CURRENCIES,
   ACT_SUBMIT_EXPENSES,
 } from '../actions/actionTypes';
@@ -24,6 +25,12 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses, action.payload.expenses],
+    };
+
+  case ACT_DELETE_BTN:
+    return {
+      ...state,
+      expenses: action.payload.expenses,
     };
 
   default:

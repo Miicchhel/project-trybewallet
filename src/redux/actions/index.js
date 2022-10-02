@@ -2,6 +2,7 @@ import {
   ACT_SUBMIT_EMAIL,
   ACT_SUBMIT_CURRENCIES,
   ACT_SUBMIT_EXPENSES,
+  ACT_DELETE_BTN,
 } from './actionTypes';
 
 // função para fazer a chamada da API
@@ -29,4 +30,8 @@ export function fetchCurrencies() {
 
 export const submitExpenses = (expenses) => (
   { type: ACT_SUBMIT_EXPENSES, payload: { expenses } }
+);
+
+export const deleteBtn = (expenses) => (
+  { type: ACT_DELETE_BTN, payload: { expenses } }
 );
