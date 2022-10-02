@@ -38,7 +38,7 @@ class Login extends React.Component {
     return (
       <section>
         <form>
-          <labe htmlFor="email">
+          <label htmlFor="email">
             <input
               value={ email }
               name="email"
@@ -48,8 +48,8 @@ class Login extends React.Component {
               onChange={ this.handleChange }
               data-testid="email-input"
             />
-          </labe>
-          <labe htmlFor="password">
+          </label>
+          <label htmlFor="password">
             <input
               valeu={ password }
               name="password"
@@ -59,7 +59,7 @@ class Login extends React.Component {
               onChange={ this.handleChange }
               data-testid="password-input"
             />
-          </labe>
+          </label>
           <Link to="/carteira">
             <button
               type="button"
