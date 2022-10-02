@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { submitEmail } from '../redux/actions';
 import { Link } from 'react-router-dom';
+import { submitEmail } from '../redux/actions';
 
 const minLengt = 6;
 
@@ -81,7 +81,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Login.propTypes = {
-  history: PropTypes.func.isRequired,
+  // history: PropTypes.func.isRequired,
   FunctionSubmitEmail: PropTypes.func.isRequired,
 };
 
