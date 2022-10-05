@@ -1,4 +1,5 @@
 import {
+  ACT_CHECK_EDIT_BTN,
   ACT_DELETE_BTN,
   ACT_SUBMIT_CURRENCIES,
   ACT_SUBMIT_EXPENSES,
@@ -10,6 +11,7 @@ const INITIAL_STATE = {
   expenses: [], // array de objetos, com cada objeto tendo as chaves id, value, currency, method, tag, description e exchangeRates
   editor: false, // valor booleano que indica de uma despesa está sendo editada
   idToEdit: 0, // valor numérico que armazena o id da despesa que esta sendo editada
+  checkEditBtn: false,
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
@@ -22,15 +24,25 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     };
 
   case ACT_SUBMIT_EXPENSES:
+    console.log(action);
     return {
       ...state,
       expenses: [...state.expenses, action.payload.expenses],
     };
 
   case ACT_DELETE_BTN:
+    console.log(action);
     return {
       ...state,
       expenses: action.payload.expenses,
+    };
+
+  case ACT_CHECK_EDIT_BTN:
+    console.log(action);
+    return {
+      ...state,
+      checkEditBtn: true,
+      idToEdit: action.payload.idToEdit,
     };
 
   default:

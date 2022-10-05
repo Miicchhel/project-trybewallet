@@ -17,8 +17,35 @@ class WalletForm extends Component {
   };
 
   async componentDidMount() {
-    const { executeFetchCurrencies } = this.props;
+    const { executeFetchCurrencies, checkEdit, expenses, idToEdit } = this.props;
     executeFetchCurrencies();
+
+    // if (checkEdit) {
+    //   const test = expenses.find((item) => item.id === idToEdit);
+    //   console.log('componentDidMount');
+    //   this.setState({
+    //     value: test.value,
+    //     description: test.description,
+    //     currency: test.currency,
+    //     method: test.method,
+    //     tag: test.tag,
+    //   });
+    // }
+  }
+
+  componentWillUpdate() {
+    const { checkEdit, expenses, idToEdit } = this.props;
+    console.log('chamou o testando');
+    if (checkEdit) {
+      const test = expenses.find((item) => item.id === idToEdit);
+      this.setState({
+        value: test.value,
+        description: test.description,
+        currency: test.currency,
+        method: test.method,
+        tag: test.tag,
+      });
+    }
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -32,9 +59,17 @@ class WalletForm extends Component {
     this.setState({ value: '', description: '' });
   };
 
+  handleEditSubmitForm = () => {
+    const { expenses, idToEdit } = this.props;
+    const test = expenses.find((item) => item.id === idToEdit);
+    console.log('teste:', test);
+  };
+
   render() {
     const { value, description, currency, method, tag } = this.state;
-    const { currencies } = this.props;
+    const { currencies, checkEdit } = this.props;
+    // console.log(checkEdit);
+    this.testando();
     return (
       <form>
         <label htmlFor="value">
@@ -103,12 +138,23 @@ class WalletForm extends Component {
             <option>Saúde</option>
           </select>
         </label>
-        <button
-          type="button"
-          onClick={ this.handleFormSubmite }
-        >
-          Adicionar despesa
-        </button>
+        {
+          !checkEdit ? (
+            <button
+              type="button"
+              onClick={ this.handleFormSubmite }
+            >
+              Adicionar despesa
+            </button>)
+            : (
+              <button
+                type="button"
+                onClick={ this.handleEditSubmitForm }
+              >
+                Editar despesa
+              </button>
+            )
+        }
       </form>
     );
   }
@@ -123,6 +169,8 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   responseAPI: state.wallet.responseAPI,
   expenses: state.wallet.expenses,
+  checkEdit: state.wallet.checkEditBtn,
+  idToEdit: state.wallet.idToEdit,
 });
 
 WalletForm.propTypes = {

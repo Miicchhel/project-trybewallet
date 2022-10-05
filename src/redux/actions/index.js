@@ -3,6 +3,8 @@ import {
   ACT_SUBMIT_CURRENCIES,
   ACT_SUBMIT_EXPENSES,
   ACT_DELETE_BTN,
+  ACT_CHECK_EDIT_BTN,
+  ACT_EDIT_BTN,
 } from './actionTypes';
 
 // função para fazer a chamada da API
@@ -34,4 +36,12 @@ export const submitExpenses = (expenses) => (
 
 export const deleteBtn = (expenses) => (
   { type: ACT_DELETE_BTN, payload: { expenses } }
+);
+
+export const editBtn = (expenses) => (
+  { type: ACT_EDIT_BTN, payload: { expenses } }
+);
+
+export const checkEditBtn = (idToEdit) => (
+  { type: ACT_CHECK_EDIT_BTN, payload: { idToEdit } }
 );
