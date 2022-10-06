@@ -5,6 +5,7 @@ import {
   getDataAPI,
   fetchCurrencies,
   submitExpenses,
+  editBtn,
 } from '../redux/actions';
 
 class WalletForm extends Component {
@@ -17,7 +18,7 @@ class WalletForm extends Component {
   };
 
   async componentDidMount() {
-    const { executeFetchCurrencies, checkEdit, expenses, idToEdit } = this.props;
+    const { executeFetchCurrencies } = this.props;
     executeFetchCurrencies();
 
     // if (checkEdit) {
@@ -33,20 +34,21 @@ class WalletForm extends Component {
     // }
   }
 
-  componentWillUpdate() {
-    const { checkEdit, expenses, idToEdit } = this.props;
-    console.log('chamou o testando');
-    if (checkEdit) {
-      const test = expenses.find((item) => item.id === idToEdit);
-      this.setState({
-        value: test.value,
-        description: test.description,
-        currency: test.currency,
-        method: test.method,
-        tag: test.tag,
-      });
-    }
-  }
+  // testando = () => {
+  //   const { checkEdit, expenses, idToEdit } = this.props;
+  //   console.log('chamou o testando');
+  //   if (checkEdit) {
+  //     const test = expenses.find((item) => item.id === idToEdit);
+  //     this.setState({
+  //       value: test.value,
+  //       description: test.description,
+  //       currency: test.currency,
+  //       method: test.method,
+  //       tag: test.tag,
+  //     });
+  //   }
+  //   return '';
+  // };
 
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
@@ -60,16 +62,30 @@ class WalletForm extends Component {
   };
 
   handleEditSubmitForm = () => {
-    const { expenses, idToEdit } = this.props;
-    const test = expenses.find((item) => item.id === idToEdit);
-    console.log('teste:', test);
+    const { expenses, idToEdit, executeEditBtn } = this.props;
+    const { value, description, currency, method, tag } = this.state;
+
+    const test = expenses.filter((item) => {
+      // (item.id === idToEdit) ? console.log('ACHEI:',item) : console.log('Não é ele:',item);
+      if (item.id === idToEdit) {
+        item.value = value;
+        item.description = description;
+        item.currency = currency;
+        item.method = method;
+        item.tag = tag;
+      }
+      return expenses;
+    });
+    this.setState({ value: '', description: '' });
+
+    executeEditBtn(test);
   };
 
   render() {
     const { value, description, currency, method, tag } = this.state;
     const { currencies, checkEdit } = this.props;
     // console.log(checkEdit);
-    this.testando();
+    // this.testando();
     return (
       <form>
         <label htmlFor="value">
@@ -149,7 +165,10 @@ class WalletForm extends Component {
             : (
               <button
                 type="button"
-                onClick={ this.handleEditSubmitForm }
+                onClick={ () => {
+                  // this.testando();
+                  this.handleEditSubmitForm();
+                } }
               >
                 Editar despesa
               </button>
@@ -163,6 +182,7 @@ class WalletForm extends Component {
 const mapDispatchToProps = (dispatch) => ({
   executeFetchCurrencies: () => dispatch(fetchCurrencies()),
   executeSubmitExpenses: (expenses) => dispatch(submitExpenses(expenses)),
+  executeEditBtn: (expenses) => dispatch(editBtn(expenses)),
 });
 
 const mapStateToProps = (state) => ({
